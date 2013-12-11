@@ -11,6 +11,7 @@ require './lib/genre'
 # our_genre = files[0].match(genre)
 class Parser
   def initialize
+    parse_songs
   end
 
   def parse_songs
@@ -28,6 +29,10 @@ class Parser
       catalog << song_array
     end
     catalog
+  end
+
+  def all_artists
+    Artist.all
   end
 
 

@@ -15,4 +15,10 @@ module Jukebox
 		end
 
 	end
+
+	get '/artists' do
+		@playlister = Parser.new
+		@playlister.all_artists.each do |artist|
+			artist.name
+	end
 end
