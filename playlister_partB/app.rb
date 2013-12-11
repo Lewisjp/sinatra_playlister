@@ -11,37 +11,30 @@ class App
   def initialize(user_choice)
     @parser = Parser.new
     @catalog = parser.parse_songs 
-    @which_artist = user_choice
+    @which_artist = user_choice.to_s
 
-    #redo this method using .length
     #print out a list of songs and genres for that artist
-    @artists_total_songs = 0  # keeps track of songs
+    @artists_total_songs = 1  # keeps track of songs
     @artists_total_songs_display = [] # keeps track of song names 
     @songs_display_genre = [] #keeps track of song's genre
-      @artist_song = catalog.collect do |file|  
-        if file[0] == which_artist
-          @artists_total_songs += 1 
-          @artists_total_songs_display << file[1] 
-          @songs_display_genre << file[2]
+      @artist_song = catalog.each do |file|  #= [[artist,song,genre]]
+        if file[0] == which_artist.capitalize
+#          artists_total_songs += 1 
+          artists_total_songs_display << file[1] 
+          songs_display_genre << file[2]
         end
       end
-
-
-    
-    pull_artist_songs
-
-    display_artist_songs
 
   end
 
   def pull_artist_songs
 
-    which_artist + " - " + artists_total_songs.to_s + " Songs"
+    which_artist + " - " + artists_total_songs_display.length.to_s + " Songs"
   end
 
   def display_artist_songs
-    artists_total_songs.times do | i |
-       "#{i + 1}. " + artists_total_songs_display[i] + " - " + songs_display_genre[i].to_s.capitalize
+    artists_total_songs_display.length.times do | i |
+       artists_total_songs_display[i] + " - " + songs_display_genre[i]
     end
   end
 
@@ -165,8 +158,35 @@ class App
     end
   end
 
-  def test
-    catalog.inspect
+  def testa
+
+
+  end
+
+  def testb
+ 
+  end
+
+  def testc #stops working 
+
+ #     which_artist.class => string
+ #      artist_song[-2][0].class  => string
+
+artists_total_songs_display
+  end 
+  
+  def testd
+
+#          artist_song[-2][0].inspect => "Yuck"
+#          artist_song[-2][0].downcase = "yuck"
+#            artist_song[-2][0].downcase.capitalize => "Yuck"
+songs_display_genre
+
+  end
+
+  def teste
+    artists_total_songs_display[0] + " - " + songs_display_genre[0].capitalize
+        artists_total_songs_display[1] + " - " + songs_display_genre[1].capitalize
   end
 
 end
