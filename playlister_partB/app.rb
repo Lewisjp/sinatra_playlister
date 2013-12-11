@@ -184,7 +184,7 @@ songs_display_genre
 
   end
 
-  def teste
+  def test
     artists_total_songs_display[0] + " - " + songs_display_genre[0].capitalize
         artists_total_songs_display[1] + " - " + songs_display_genre[1].capitalize
   end

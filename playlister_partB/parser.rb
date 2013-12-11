@@ -35,6 +35,23 @@ class Parser
     Artist.all
   end
 
+  def song_count 
+    ARTISTS.songs_count
+  end
+
+  def all_genres
+    Genre.all
+  end
+
+  def artists_unique
+    Genre.artist
+  end
+
+  def genre_songs
+    Genre.songs
+  end
+
+
 
   #  files = Dir.entries('data').select { |f| !File.directory? f}
   # ap parse_songs(files)
