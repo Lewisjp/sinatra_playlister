@@ -1,10 +1,18 @@
-require_relative 'artist'
-require_relative 'song'
-require_relative 'genre'
+require './lib/artist'
+require './lib/song'
+require './lib/genre'
 
+# artist = /((.*) (?=\-))/
+# song = /(?<=\-\s).*(?=\s\[)/
+# genre = /(?<=\[).*(?=\])/
 
-def parse_directory(dir_name)
-  songs = Dir.entries(dir_name).delete_if{|str| str[0] == "."}
+# our_artist = files[0].match(artist)
+# our_song = files[0].match(song)
+# our_genre = files[0].match(genre)
+class Parser
+
+def initialize(directory_name)
+  songs = Dir.entries(directory_name).delete_if{|str| str[0] == "."}
   songs.each do |filename|
     artist_name = filename.split(" - ")[0]
     song_name = filename.split(" - ")[1].split("[")[0].strip
@@ -21,22 +29,32 @@ def parse_directory(dir_name)
     artist.add_song(song)
   end
 end
-  
-  def song_count 
-    ARTISTS.songs_count
+
+  def all_artists
+    Artist.all
   end
 
   def all_genres
     Genre.all
   end
 
-  def artists_unique
-    Genre.artist
+   def all_songs
+    Song.all
   end
 
-  def genre_songs
-    Genre.songs
+  def find_artist(name)
+    Artist.find_by_name(name)
   end
+
+  def find_song(name)
+    Song.find_by_name(name)
+  end
+
+  def find_genre(name)
+    Genre.find_by_name(name)
+  end
+
+
 
 
 

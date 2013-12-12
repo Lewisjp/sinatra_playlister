@@ -1,3 +1,3 @@
-require './cli'
+require './app'
 
-run Jukebox::Playlister
+run JukeBox::App.new

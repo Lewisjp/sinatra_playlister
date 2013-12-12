@@ -1,35 +1,58 @@
 
 class Song
-  
-  attr_accessor :songs, :name , :artist
-  #attr_reader :genre
+  attr_accessor :artist, :genre, :name
 
-  def genre=(genre)  #using the attribute accessor 
-    @genre = genre # 'A genre has a name' 
-    genre.songs << self # 'A genre has many songs' # song object.genre = genre obj
-    #@genre =genre_obj
-    #genre_obj .songs (array o songs) = []
-    # talking to array from accessor at artist class songs
+  def self.find_by_name(name)
+    all.detect {|a| a.name == name}
   end
 
+  def self.list
+    all.each_with_index do |o, index|
+      puts "#{index+1}. #{o.name}"
+    end
+  end
 
-	# def initialize(songs=[], genre=[])
- #    @songs = songs
- #    @genre = genre
- #    @name = name
+  def initialize
+    self.class.all << self
+  end
 
-	# end
+  def self.action(index)
+    self.all[index-1].play
+  end
 
- #  def genre
- #    @genre
- #  end
+  def self.play(index)
+    all[index - 1].play
+  end
 
- #  def genre=(genre2)
- #    @genre = genre2
- #    @genre.songs << self
- #    @genre
- #  end
+  def play
+    puts "playing #{self.title}, enjoy!"
+  end
 
+  def title
+    "#{self.artist.name} - #{self.name} [#{self.genre.name}]"
+  end
+
+  def genre=(genre)
+    @genre = genre
+    genre.songs << self
+  end
+
+  def self.reset_all
+    @all = []
+  end
+
+  def count
+    self.class.all.size
+  end
+
+  def self.count
+    @all.size
+  end
+
+  def self.all
+    @all
+  end
+
+  reset_all
 
 end
-

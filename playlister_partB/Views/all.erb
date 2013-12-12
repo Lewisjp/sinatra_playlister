@@ -1,0 +1,7 @@
+<% if params[:reply] == "artist" %>
+<%= adv_partial :artists, @playlister.all_artists %>
+<% elsif params[:reply] == "genre" %>
+<%= adv_partial :genres, @playlister.all_genres %>
+<% elsif params[:reply] == "song" %>
+<%= adv_partial :songs, @playlister.all_songs %>
+<% end %>

@@ -1,74 +1,71 @@
 
 class Artist
+  attr_accessor :name, :songs
+  
+  def self.find_by_name(name)
+    all.detect{|a| a.name == name}
+  end
 
-
-  attr_accessor :name, :songs #sets up instance methods, so you can call name without initalizing 
-
-  ARTISTS = Array.new
+  def self.list
+    all.each_with_index do |o, index|
+      puts "#{index+1}. #{o.name}"
+    end
+  end
 
   def initialize
-    @name = name  # 'An artist can have a name'
-    @songs = Array.new  #"An artist has songs"
-    ARTISTS << self
+    self.class.all << self
+    @songs = []
   end
 
-  def self.all # 'The Artist class can keep track of artists as they are created' => Display
-    ARTISTS
-  end 
-
-  def self.count  # Number of Artists created 
-    ARTISTS.count #same thing as .length and .size
-  end
-        
-  def self.reset_artists # 'The Artist class can reset the artists that have been created'
-    ARTISTS.clear
+  def self.reset_artists
+    reset_all
   end
 
-  def songs_count # 'An artist can count how many songs they have'
-    songs.count
+  # def self.action(index)
+  #   self.all[index-1].list_songs
+  # end
+
+  def self.list_songs(index)
+    self.all[index -1].list_songs
   end
 
-  def add_song(song)  # 'a song can be added to an artist'
-    songs << song #uses the accessor for songs 
-    song.artist = self # value to song class artist varaible   .artists is from the song or genre  class  
-  end 
-
-  def genres # 'artists have genres'
-    songs.map{|song| song.genre}.uniq #.uniq does not allow repeats.  he calls the songs.genre from the song class accessor 
-    #artist is coming fron the song class 
+  def list_songs
+    # avi initially had this as Song.all and then filtered by if s.genre == self
+    # this should be pulled out of both artist and genre into listable
+    self.songs.each_with_index do |s, index|
+      puts "#{index+1}. #{s.name}"
+    end
   end
 
-	
- #  attr_accessor :name, :songs, :genres
- #    ARTISTS = []
+  def genres
+    songs.collect{|s| s.genre}.flatten.compact.uniq
+  end
 
-	# def initialize(name="N/A", songs=[])
- #    @name = name
- #    @songs = songs
- #    @genres = []
- #    ARTISTS << self
-	# end
-	
- #  def self.reset_artists
- #    ARTISTS.clear
- #  end
+  def songs_count
+    songs.size
+  end
 
- #  def self.all
- #    ARTISTS
- #  end
+  def add_song(song)
+    songs << song
+    song.artist = self
+  end
 
- #  def self.count
- #    ARTISTS.count
- #  end
+  def count
+    self.class.all.size
+  end
 
- #  def songs_count
- #    songs.count
- #  end
+  def self.count
+    @all.size
+  end
 
- #  def add_song(song)
- #    @songs << song
- #    @genres << song.genre
- #  end
-  
+  def self.all
+    @all
+  end
+
+  def self.reset_all
+    @all = []
+  end
+
+  reset_artists
+
 end
-
